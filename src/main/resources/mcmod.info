@@ -1,0 +1,16 @@
+[
+{
+  "modid": "geyserhud",
+  "name": "Geyser HUD",
+  "description": "Allows plugins to render custom HUDs.  Part of the Geyser suite.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Selim_042"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
