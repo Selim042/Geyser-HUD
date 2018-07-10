@@ -52,7 +52,7 @@ public class GeyserHUDSpigot extends JavaPlugin implements Listener, IGeyserCore
 					RenderHUDEvent event = new RenderHUDEvent(p);
 					Bukkit.getPluginManager().callEvent(event);
 					IGeyserHUD<ItemStack> oldHUD = HUD_CACHE.get(p);
-					if (!oldHUD.equals(event.getHUD())) {
+					if (oldHUD == null || !oldHUD.equals(event.getHUD())) {
 						HUD_CACHE.put(p, event.getHUD());
 						sendHUD(p, event.getHUD());
 					}

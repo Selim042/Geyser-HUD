@@ -15,12 +15,13 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 import selim.geyser.core.shared.EnumComponent;
+import selim.geyser.core.shared.GeyserCoreInfo;
 import selim.geyser.hud.shared.GeyserHUDInfo;
 import selim.geyser.hud.shared.IGeyserHUD;
 
 @Mod.EventBusSubscriber
 @Mod(modid = GeyserHUDInfo.ID, name = GeyserHUDInfo.NAME, version = GeyserHUDInfo.VERSION,
-		clientSideOnly = true)
+		dependencies = "required-after:" + GeyserCoreInfo.ID, clientSideOnly = true)
 public class GeyserHUDForge {
 
 	@Mod.Instance(value = GeyserHUDInfo.ID)
@@ -36,14 +37,16 @@ public class GeyserHUDForge {
 		network.registerMessage(PacketSendHUD.Handler.class, PacketSendHUD.class,
 				GeyserHUDInfo.PacketDiscrimators.SEND_HUD, Side.CLIENT);
 
-		FMLInterModComms.sendMessage(GeyserHUDInfo.ID,
-				GeyserHUDInfo.ID + ":components:" + GeyserHUDInfo.ID, EnumComponent.HUD.toString());
+		LOGGER.info("sending");
+		FMLInterModComms.sendMessage(GeyserCoreInfo.ID, GeyserCoreInfo.IMC_SEND_KEY,
+				EnumComponent.HUD.toString());
 	}
 
 	@SubscribeEvent
 	public void onHUDRender(RenderGameOverlayEvent.Post event) {
 		if (event.getType() != ElementType.HOTBAR || CURRENT_HUD == null)
 			return;
+		LOGGER.info("hud is null: " + (CURRENT_HUD == null));
 	}
 
 }

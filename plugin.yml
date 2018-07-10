@@ -1,4 +1,4 @@
 name: GeyserHUD
 main: selim.geyser.hud.bukkit.GeyserHUDSpigot
-depend: [ProtocolLib]
+depend: [GeyserCore]
 version: 1.0.0
