@@ -2,6 +2,7 @@ package selim.geyser.hud.shared;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class HUDPartRegistry {
 
@@ -16,12 +17,23 @@ public class HUDPartRegistry {
 			e.printStackTrace();
 			return -1;
 		}
-		if (part.getRegistryId() != -1)
-			return -1;
+		// if (part.getRegistryId() != -1)
+		// return -1;
 		int id = currentId++;
 		PARTS.put(id, partClass);
-		part.setRegistryId(id);
+		// part.setRegistryId(id);
 		return id;
+	}
+
+	public static int getPartId(IHUDPart part) {
+		return getPartId(part.getClass());
+	}
+
+	public static int getPartId(Class<? extends IHUDPart> partClass) {
+		for (Entry<Integer, Class<? extends IHUDPart>> e : PARTS.entrySet())
+			if (e.getValue().equals(partClass))
+				return e.getKey();
+		return -1;
 	}
 
 	public static Class<? extends IHUDPart> getPart(int id) {

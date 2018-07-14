@@ -30,6 +30,25 @@ public class ForgeGeyserHUD implements IGeyserHUD {
 	}
 
 	@Override
+	public IHUDPart removePart(int id) {
+		IHUDPart part = parts.remove(id);
+		return part;
+	}
+
+	@Override
+	public IHUDPart removePart(IHUDPart part) {
+		if (part == null)
+			return null;
+		int id = -1;
+		for (int i = 0; i < parts.size(); i++)
+			if (part.equals(parts.get(i)))
+				id = i;
+		if (id == -1)
+			return null;
+		return removePart(id);
+	}
+
+	@Override
 	public IHUDPart[] getParts() {
 		// TODO: optimize
 		List<IHUDPart> parts = new LinkedList<>();

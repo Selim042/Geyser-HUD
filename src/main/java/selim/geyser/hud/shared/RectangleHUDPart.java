@@ -23,6 +23,7 @@ public class RectangleHUDPart extends AbstractHUDPart {
 
 	@Override
 	public void toBytes(ByteBuf buf) {
+		super.toBytes(buf);
 		allToBuf(buf, x, y, width, height, color);
 		// buf.writeInt(this.x);
 		// buf.writeInt(this.y);
@@ -33,6 +34,7 @@ public class RectangleHUDPart extends AbstractHUDPart {
 
 	@Override
 	public void fromBytes(ByteBuf buf) {
+		super.fromBytes(buf);
 		Object[] objs = allFromBuf(buf, Integer.class, Integer.class, Integer.class, Integer.class,
 				Integer.class);
 		x = (int) objs[0];

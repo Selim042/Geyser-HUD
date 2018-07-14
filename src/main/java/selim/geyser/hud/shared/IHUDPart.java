@@ -14,10 +14,6 @@ public interface IHUDPart {
 
 	public void markDirty();
 
-	public int getRegistryId();
-
-	public void setRegistryId(int id);
-
 	public int getHUDId();
 
 	public void setHUDId(int id);

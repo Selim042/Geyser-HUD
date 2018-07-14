@@ -17,7 +17,7 @@ public class PacketNewPart extends GeyserPacket {
 
 	@Override
 	public void toBytes(ByteBuf buf) {
-		buf.writeInt(this.part.getRegistryId());
+		buf.writeInt(HUDPartRegistry.getPartId(this.part));
 		this.part.toBytes(buf);
 	}
 

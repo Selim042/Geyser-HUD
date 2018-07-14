@@ -20,12 +20,13 @@ import io.netty.buffer.Unpooled;
 import selim.geyser.core.bukkit.network.NetworkHandler;
 import selim.geyser.core.shared.EnumComponent;
 import selim.geyser.core.shared.IGeyserCorePlugin;
+import selim.geyser.hud.bukkit.packets.PacketClearHUD;
 import selim.geyser.hud.bukkit.packets.PacketNewPart;
+import selim.geyser.hud.bukkit.packets.PacketRemovePart;
 import selim.geyser.hud.shared.GeyserHUDInfo;
 import selim.geyser.hud.shared.HUDPartRegistry;
 import selim.geyser.hud.shared.IGeyserHUD;
 import selim.geyser.hud.shared.RectangleHUDPart;
-import selim.geyser.hud.shared.StringHUDPart;
 
 public class GeyserHUDSpigot extends JavaPlugin implements Listener, IGeyserCorePlugin {
 
@@ -46,10 +47,13 @@ public class GeyserHUDSpigot extends JavaPlugin implements Listener, IGeyserCore
 		LOGGER = this.getLogger();
 		INSTANCE = this;
 		NETWORK = NetworkHandler.registerChannel(this, GeyserHUDInfo.CHANNEL);
-		NETWORK.registerPacket(GeyserHUDInfo.PacketDiscrimators.SEND_HUD, PacketNewPart.class);
+		NETWORK.registerPacket(GeyserHUDInfo.PacketDiscrimators.SEND_PART, PacketNewPart.class);
+		NETWORK.registerPacket(GeyserHUDInfo.PacketDiscrimators.CLEAR_HUD, PacketClearHUD.class);
+		NETWORK.registerPacket(GeyserHUDInfo.PacketDiscrimators.REMOVE_PART, PacketRemovePart.class);
 		PluginManager manager = this.getServer().getPluginManager();
 		manager.registerEvents(this, this);
 		HUDPartRegistry.registerPart(StringHUDPartSpigot.class);
+		HUDPartRegistry.registerPart(RectangleHUDPart.class);
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
 
 			@Override
@@ -89,8 +93,10 @@ public class GeyserHUDSpigot extends JavaPlugin implements Listener, IGeyserCore
 
 			@Override
 			public void run() {
-				if (player.getListeningPluginChannels().contains(GeyserHUDInfo.CHANNEL))
+				if (player.getListeningPluginChannels().contains(GeyserHUDInfo.CHANNEL)) {
+					NETWORK.sendPacket(player, new PacketClearHUD());
 					HUDS.put(player, new SpigotGeyserHUD(player));
+				}
 			}
 		}, ping);
 	}

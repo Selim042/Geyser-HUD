@@ -1,7 +1,6 @@
 package selim.geyser.hud.forge.packets;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
@@ -21,7 +20,7 @@ public class PacketNewPart implements IMessage {
 
 	@Override
 	public void toBytes(ByteBuf buf) {
-		buf.writeInt(this.part.getRegistryId());
+		buf.writeInt(HUDPartRegistry.getPartId(this.part));
 		this.part.toBytes(buf);
 	}
 
@@ -37,7 +36,6 @@ public class PacketNewPart implements IMessage {
 
 		@Override
 		public IMessage onMessage(PacketNewPart message, MessageContext ctx) {
-			Minecraft.getMinecraft().player.sendChatMessage("NEW PART: " + message.part);
 			GeyserHUDForge.HUD.addPart(message.part);
 			return null;
 		}

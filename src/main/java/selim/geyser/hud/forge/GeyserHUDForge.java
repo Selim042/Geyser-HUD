@@ -16,7 +16,9 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 import selim.geyser.core.shared.EnumComponent;
 import selim.geyser.core.shared.GeyserCoreInfo;
+import selim.geyser.hud.forge.packets.PacketClearHUD;
 import selim.geyser.hud.forge.packets.PacketNewPart;
+import selim.geyser.hud.forge.packets.PacketRemovePart;
 import selim.geyser.hud.shared.GeyserHUDInfo;
 import selim.geyser.hud.shared.HUDPartRegistry;
 import selim.geyser.hud.shared.IGeyserHUD;
@@ -38,8 +40,13 @@ public class GeyserHUDForge {
 	public void preInit(FMLPreInitializationEvent event) {
 		network = NetworkRegistry.INSTANCE.newSimpleChannel(GeyserHUDInfo.CHANNEL);
 		network.registerMessage(PacketNewPart.Handler.class, PacketNewPart.class,
-				GeyserHUDInfo.PacketDiscrimators.SEND_HUD, Side.CLIENT);
+				GeyserHUDInfo.PacketDiscrimators.SEND_PART, Side.CLIENT);
+		network.registerMessage(PacketClearHUD.Handler.class, PacketClearHUD.class,
+				GeyserHUDInfo.PacketDiscrimators.CLEAR_HUD, Side.CLIENT);
+		network.registerMessage(PacketRemovePart.Handler.class, PacketRemovePart.class,
+				GeyserHUDInfo.PacketDiscrimators.REMOVE_PART, Side.CLIENT);
 		HUDPartRegistry.registerPart(StringHUDPartForge.class);
+		HUDPartRegistry.registerPart(RectangleHUDPartForge.class);
 
 		// LOGGER.info("sending");
 		FMLInterModComms.sendMessage(GeyserCoreInfo.ID, GeyserCoreInfo.IMC_SEND_KEY,

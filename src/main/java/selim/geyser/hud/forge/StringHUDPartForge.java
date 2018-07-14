@@ -9,6 +9,7 @@ public class StringHUDPartForge extends StringHUDPart {
 
 	@Override
 	public void toBytes(ByteBuf buf) {
+		super.toBytes(buf);
 		ByteBufUtils.writeUTF8String(buf, this.getText());
 		buf.writeInt(this.getPositionX());
 		buf.writeInt(this.getPositionY());
@@ -17,6 +18,7 @@ public class StringHUDPartForge extends StringHUDPart {
 
 	@Override
 	public void fromBytes(ByteBuf buf) {
+		super.fromBytes(buf);
 		this.setText(ByteBufUtils.readUTF8String(buf));
 		this.setPositonX(buf.readInt());
 		this.setPositonY(buf.readInt());

@@ -6,6 +6,10 @@ public interface IGeyserHUD {
 
 	public IHUDPart addPart(IHUDPart part);
 
+	public IHUDPart removePart(int id);
+
+	public IHUDPart removePart(IHUDPart part);
+
 	public IHUDPart[] getParts();
 
 	public boolean isDirty();

@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 import org.bukkit.entity.Player;
 
 import selim.geyser.hud.bukkit.packets.PacketNewPart;
+import selim.geyser.hud.bukkit.packets.PacketRemovePart;
 import selim.geyser.hud.shared.IGeyserHUD;
 import selim.geyser.hud.shared.IHUDPart;
 
@@ -36,8 +37,28 @@ public class SpigotGeyserHUD implements IGeyserHUD {
 		part.setHUDId(getAvailableId());
 		parts.put(part.getHUDId(), part);
 		GeyserHUDSpigot.NETWORK.sendPacket(this.player, new PacketNewPart(part));
-		System.out.println("sending new part to player: " + part);
 		return part;
+	}
+
+	@Override
+	public IHUDPart removePart(int id) {
+		IHUDPart part = parts.remove(id);
+		if (part != null)
+			GeyserHUDSpigot.NETWORK.sendPacket(this.player, new PacketRemovePart(id));
+		return part;
+	}
+
+	@Override
+	public IHUDPart removePart(IHUDPart part) {
+		if (part == null)
+			return null;
+		int id = -1;
+		for (int i = 0; i < parts.size(); i++)
+			if (part.equals(parts.get(i)))
+				id = i;
+		if (id == -1)
+			return null;
+		return removePart(id);
 	}
 
 	@Override

@@ -1,10 +1,21 @@
 package selim.geyser.hud.shared;
 
+import io.netty.buffer.ByteBuf;
+
 public abstract class AbstractHUDPart implements IHUDPart {
 
 	private boolean dirty;
-	private static int registryId = -1;
 	private int hudId = -1;
+
+	@Override
+	public void toBytes(ByteBuf buf) {
+		buf.writeInt(this.hudId);
+	}
+
+	@Override
+	public void fromBytes(ByteBuf buf) {
+		this.hudId = buf.readInt();
+	}
 
 	@Override
 	public boolean isDirty() {
@@ -18,17 +29,6 @@ public abstract class AbstractHUDPart implements IHUDPart {
 
 	public void clean() {
 		this.dirty = false;
-	}
-
-	@Override
-	public int getRegistryId() {
-		return AbstractHUDPart.registryId;
-	}
-
-	@Override
-	public void setRegistryId(int id) {
-		if (AbstractHUDPart.registryId == -1)
-			AbstractHUDPart.registryId = id;
 	}
 
 	@Override
