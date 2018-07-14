@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import net.minecraft.client.Minecraft;
 import selim.geyser.hud.shared.IGeyserHUD;
 import selim.geyser.hud.shared.IHUDPart;
 
@@ -15,7 +16,6 @@ public class ForgeGeyserHUD implements IGeyserHUD {
 	private int partId = 0;
 	private List<Integer> reusableIds = new ArrayList<>();
 	private Map<Integer, IHUDPart> parts = new HashMap<>();
-	private boolean dirty;
 
 	@Override
 	public IHUDPart getPart(int id) {
@@ -23,7 +23,7 @@ public class ForgeGeyserHUD implements IGeyserHUD {
 	}
 
 	@Override
-	public IHUDPart addPart(IHUDPart part) {
+	public <T extends IHUDPart> T addPart(T part) {
 		if (part.getHUDId() != -1) {
 			parts.put(part.getHUDId(), part);
 			return part;
@@ -39,8 +39,9 @@ public class ForgeGeyserHUD implements IGeyserHUD {
 		return part;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public IHUDPart removePart(IHUDPart part) {
+	public <T extends IHUDPart> T removePart(T part) {
 		if (part == null)
 			return null;
 		int id = -1;
@@ -49,7 +50,7 @@ public class ForgeGeyserHUD implements IGeyserHUD {
 				id = i;
 		if (id == -1)
 			return null;
-		return removePart(id);
+		return (T) removePart(id);
 	}
 
 	@Override
@@ -69,25 +70,17 @@ public class ForgeGeyserHUD implements IGeyserHUD {
 		return id;
 	}
 
-	// @Override
-	// public boolean isDirty() {
-	// if (this.dirty)
-	// return this.dirty;
-	// for (Entry<Integer, IHUDPart> e : parts.entrySet())
-	// return e.getValue().isDirty();
-	// return false;
-	// }
-
-	// @Override
-	// public void markDirty() {
-	// this.dirty = true;
-	// }
-
 	@Override
 	public void update() {}
 
-	protected void clean() {
-		this.dirty = false;
+	@Override
+	public int getWidth() {
+		return Minecraft.getMinecraft().displayWidth;
+	}
+
+	@Override
+	public int getHeight() {
+		return Minecraft.getMinecraft().displayHeight;
 	}
 
 }

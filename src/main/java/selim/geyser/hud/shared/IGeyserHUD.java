@@ -12,10 +12,10 @@ public interface IGeyserHUD {
 
 	public IHUDPart[] getParts();
 
-	// public boolean isDirty();
-
-	// public void markDirty();
-
 	public void update();
+
+	public int getWidth();
+
+	public int getHeight();
 
 }

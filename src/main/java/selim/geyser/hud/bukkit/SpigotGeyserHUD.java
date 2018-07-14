@@ -22,7 +22,8 @@ public class SpigotGeyserHUD implements IGeyserHUD {
 	private int partId = 0;
 	private List<Integer> reusableIds = new ArrayList<>();
 	private Map<Integer, IHUDPart> parts = new HashMap<>();
-	// private boolean dirty;
+	private int width;
+	private int height;
 
 	public SpigotGeyserHUD(Player player) {
 		this.player = player;
@@ -83,20 +84,6 @@ public class SpigotGeyserHUD implements IGeyserHUD {
 		return id;
 	}
 
-	// @Override
-	// public boolean isDirty() {
-	// if (this.dirty)
-	// return this.dirty;
-	// for (Entry<Integer, IHUDPart> e : parts.entrySet())
-	// return e.getValue().isDirty();
-	// return false;
-	// }
-
-	// @Override
-	// public void markDirty() {
-	// this.dirty = true;
-	// }
-
 	@Override
 	public void update() {
 		for (Entry<Integer, IHUDPart> e : parts.entrySet()) {
@@ -108,8 +95,22 @@ public class SpigotGeyserHUD implements IGeyserHUD {
 		}
 	}
 
-	// protected void clean() {
-	// this.dirty = false;
-	// }
+	@Override
+	public int getWidth() {
+		return this.width;
+	}
+
+	@Override
+	public int getHeight() {
+		return this.height;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
 
 }

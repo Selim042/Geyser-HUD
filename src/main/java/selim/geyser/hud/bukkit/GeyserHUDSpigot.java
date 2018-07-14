@@ -23,6 +23,7 @@ import selim.geyser.hud.bukkit.packets.PacketClearHUD;
 import selim.geyser.hud.bukkit.packets.PacketModifyPart;
 import selim.geyser.hud.bukkit.packets.PacketNewPart;
 import selim.geyser.hud.bukkit.packets.PacketRemovePart;
+import selim.geyser.hud.bukkit.packets.PacketScreenSize;
 import selim.geyser.hud.shared.GeyserHUDInfo;
 import selim.geyser.hud.shared.HUDPartRegistry;
 import selim.geyser.hud.shared.IGeyserHUD;
@@ -52,12 +53,14 @@ public class GeyserHUDSpigot extends JavaPlugin implements Listener, IGeyserCore
 		NETWORK.registerPacket(GeyserHUDInfo.PacketDiscrimators.CLEAR_HUD, PacketClearHUD.class);
 		NETWORK.registerPacket(GeyserHUDInfo.PacketDiscrimators.REMOVE_PART, PacketRemovePart.class);
 		NETWORK.registerPacket(GeyserHUDInfo.PacketDiscrimators.MODIFY_PART, PacketModifyPart.class);
+		NETWORK.registerPacket(GeyserHUDInfo.PacketDiscrimators.SCREEN_SIZE, PacketScreenSize.class);
 
 		PluginManager manager = this.getServer().getPluginManager();
 		manager.registerEvents(this, this);
 
 		HUDPartRegistry.registerPart(StringHUDPartSpigot.class);
 		HUDPartRegistry.registerPart(RectangleHUDPart.class);
+		HUDPartRegistry.registerPart(ItemStackHUDPartSpigot.class);
 	}
 
 	@Override

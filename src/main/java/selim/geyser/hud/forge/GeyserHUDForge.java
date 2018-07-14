@@ -3,6 +3,7 @@ package selim.geyser.hud.forge;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
@@ -20,6 +21,7 @@ import selim.geyser.hud.forge.packets.PacketClearHUD;
 import selim.geyser.hud.forge.packets.PacketModifyPart;
 import selim.geyser.hud.forge.packets.PacketNewPart;
 import selim.geyser.hud.forge.packets.PacketRemovePart;
+import selim.geyser.hud.forge.packets.PacketScreenSize;
 import selim.geyser.hud.shared.GeyserHUDInfo;
 import selim.geyser.hud.shared.HUDPartRegistry;
 import selim.geyser.hud.shared.IGeyserHUD;
@@ -48,19 +50,35 @@ public class GeyserHUDForge {
 				GeyserHUDInfo.PacketDiscrimators.REMOVE_PART, Side.CLIENT);
 		network.registerMessage(PacketModifyPart.Handler.class, PacketModifyPart.class,
 				GeyserHUDInfo.PacketDiscrimators.MODIFY_PART, Side.CLIENT);
+		network.registerMessage(PacketScreenSize.Handler.class, PacketScreenSize.class,
+				GeyserHUDInfo.PacketDiscrimators.SCREEN_SIZE, Side.CLIENT);
 
 		HUDPartRegistry.registerPart(StringHUDPartForge.class);
 		HUDPartRegistry.registerPart(RectangleHUDPartForge.class);
+		HUDPartRegistry.registerPart(ItemStackHUDPartForge.class);
 
 		// LOGGER.info("sending");
 		FMLInterModComms.sendMessage(GeyserCoreInfo.ID, GeyserCoreInfo.IMC_SEND_KEY,
 				EnumComponent.HUD.toString());
 	}
 
+	private static int screenWidth = -1;
+	private static int screenHeight = -1;
+
 	@SubscribeEvent
 	public static void onHUDRender(RenderGameOverlayEvent.Post event) {
 		if (event.getType() != ElementType.HOTBAR || HUD == null)
 			return;
+		if (screenWidth == -1 || screenHeight == -1) {
+			screenWidth = Minecraft.getMinecraft().displayWidth;
+			screenHeight = Minecraft.getMinecraft().displayHeight;
+		}
+		if (screenWidth != Minecraft.getMinecraft().displayWidth
+				|| screenHeight != Minecraft.getMinecraft().displayHeight) {
+			screenWidth = Minecraft.getMinecraft().displayWidth;
+			screenHeight = Minecraft.getMinecraft().displayHeight;
+			network.sendToServer(new PacketScreenSize());
+		}
 		GlStateManager.pushMatrix();
 		for (IHUDPart part : HUD.getParts())
 			part.render();

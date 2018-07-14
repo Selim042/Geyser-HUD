@@ -15,12 +15,12 @@ public class PacketClearHUD implements IMessage {
 	@Override
 	public void toBytes(ByteBuf buf) {}
 
-	public static class Handler implements IMessageHandler<PacketClearHUD, IMessage> {
+	public static class Handler implements IMessageHandler<PacketClearHUD, PacketScreenSize> {
 
 		@Override
-		public IMessage onMessage(PacketClearHUD message, MessageContext ctx) {
+		public PacketScreenSize onMessage(PacketClearHUD message, MessageContext ctx) {
 			GeyserHUDForge.HUD = new ForgeGeyserHUD();
-			return null;
+			return new PacketScreenSize();
 		}
 
 	}
