@@ -6,7 +6,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -21,6 +20,7 @@ import selim.geyser.core.bukkit.network.NetworkHandler;
 import selim.geyser.core.shared.EnumComponent;
 import selim.geyser.core.shared.IGeyserCorePlugin;
 import selim.geyser.hud.bukkit.packets.PacketClearHUD;
+import selim.geyser.hud.bukkit.packets.PacketModifyPart;
 import selim.geyser.hud.bukkit.packets.PacketNewPart;
 import selim.geyser.hud.bukkit.packets.PacketRemovePart;
 import selim.geyser.hud.shared.GeyserHUDInfo;
@@ -46,21 +46,18 @@ public class GeyserHUDSpigot extends JavaPlugin implements Listener, IGeyserCore
 	public void onEnable() {
 		LOGGER = this.getLogger();
 		INSTANCE = this;
+
 		NETWORK = NetworkHandler.registerChannel(this, GeyserHUDInfo.CHANNEL);
 		NETWORK.registerPacket(GeyserHUDInfo.PacketDiscrimators.SEND_PART, PacketNewPart.class);
 		NETWORK.registerPacket(GeyserHUDInfo.PacketDiscrimators.CLEAR_HUD, PacketClearHUD.class);
 		NETWORK.registerPacket(GeyserHUDInfo.PacketDiscrimators.REMOVE_PART, PacketRemovePart.class);
+		NETWORK.registerPacket(GeyserHUDInfo.PacketDiscrimators.MODIFY_PART, PacketModifyPart.class);
+
 		PluginManager manager = this.getServer().getPluginManager();
 		manager.registerEvents(this, this);
+
 		HUDPartRegistry.registerPart(StringHUDPartSpigot.class);
 		HUDPartRegistry.registerPart(RectangleHUDPart.class);
-		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
-
-			@Override
-			public void run() {
-
-			}
-		}, 10, 10);
 	}
 
 	@Override

@@ -17,6 +17,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import selim.geyser.core.shared.EnumComponent;
 import selim.geyser.core.shared.GeyserCoreInfo;
 import selim.geyser.hud.forge.packets.PacketClearHUD;
+import selim.geyser.hud.forge.packets.PacketModifyPart;
 import selim.geyser.hud.forge.packets.PacketNewPart;
 import selim.geyser.hud.forge.packets.PacketRemovePart;
 import selim.geyser.hud.shared.GeyserHUDInfo;
@@ -45,6 +46,9 @@ public class GeyserHUDForge {
 				GeyserHUDInfo.PacketDiscrimators.CLEAR_HUD, Side.CLIENT);
 		network.registerMessage(PacketRemovePart.Handler.class, PacketRemovePart.class,
 				GeyserHUDInfo.PacketDiscrimators.REMOVE_PART, Side.CLIENT);
+		network.registerMessage(PacketModifyPart.Handler.class, PacketModifyPart.class,
+				GeyserHUDInfo.PacketDiscrimators.MODIFY_PART, Side.CLIENT);
+
 		HUDPartRegistry.registerPart(StringHUDPartForge.class);
 		HUDPartRegistry.registerPart(RectangleHUDPartForge.class);
 

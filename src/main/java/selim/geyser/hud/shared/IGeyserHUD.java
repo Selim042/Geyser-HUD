@@ -4,16 +4,18 @@ public interface IGeyserHUD {
 
 	public IHUDPart getPart(int id);
 
-	public IHUDPart addPart(IHUDPart part);
+	public <T extends IHUDPart> T addPart(T part);
 
 	public IHUDPart removePart(int id);
 
-	public IHUDPart removePart(IHUDPart part);
+	public <T extends IHUDPart> T removePart(T part);
 
 	public IHUDPart[] getParts();
 
-	public boolean isDirty();
+	// public boolean isDirty();
 
-	public void markDirty();
+	// public void markDirty();
+
+	public void update();
 
 }

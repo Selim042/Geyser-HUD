@@ -24,6 +24,10 @@ public class ForgeGeyserHUD implements IGeyserHUD {
 
 	@Override
 	public IHUDPart addPart(IHUDPart part) {
+		if (part.getHUDId() != -1) {
+			parts.put(part.getHUDId(), part);
+			return part;
+		}
 		part.setHUDId(getAvailableId());
 		parts.put(part.getHUDId(), part);
 		return part;
@@ -65,19 +69,22 @@ public class ForgeGeyserHUD implements IGeyserHUD {
 		return id;
 	}
 
-	@Override
-	public boolean isDirty() {
-		if (this.dirty)
-			return this.dirty;
-		for (Entry<Integer, IHUDPart> e : parts.entrySet())
-			return e.getValue().isDirty();
-		return false;
-	}
+	// @Override
+	// public boolean isDirty() {
+	// if (this.dirty)
+	// return this.dirty;
+	// for (Entry<Integer, IHUDPart> e : parts.entrySet())
+	// return e.getValue().isDirty();
+	// return false;
+	// }
+
+	// @Override
+	// public void markDirty() {
+	// this.dirty = true;
+	// }
 
 	@Override
-	public void markDirty() {
-		this.dirty = true;
-	}
+	public void update() {}
 
 	protected void clean() {
 		this.dirty = false;

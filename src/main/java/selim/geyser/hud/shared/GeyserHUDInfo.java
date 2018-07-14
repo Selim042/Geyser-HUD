@@ -11,6 +11,7 @@ public class GeyserHUDInfo {
 		public static final char SEND_PART = (char) 'h';
 		public static final char CLEAR_HUD = (char) 'c';
 		public static final char REMOVE_PART = (char) 'r';
+		public static final char MODIFY_PART = (char) 'm';
 	}
 
 }

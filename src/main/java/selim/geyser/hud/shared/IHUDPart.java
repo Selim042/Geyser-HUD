@@ -14,6 +14,8 @@ public interface IHUDPart {
 
 	public void markDirty();
 
+	public void clean();
+
 	public int getHUDId();
 
 	public void setHUDId(int id);

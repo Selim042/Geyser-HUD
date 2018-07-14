@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 
 import org.bukkit.entity.Player;
 
+import selim.geyser.hud.bukkit.packets.PacketModifyPart;
 import selim.geyser.hud.bukkit.packets.PacketNewPart;
 import selim.geyser.hud.bukkit.packets.PacketRemovePart;
 import selim.geyser.hud.shared.IGeyserHUD;
@@ -21,7 +22,7 @@ public class SpigotGeyserHUD implements IGeyserHUD {
 	private int partId = 0;
 	private List<Integer> reusableIds = new ArrayList<>();
 	private Map<Integer, IHUDPart> parts = new HashMap<>();
-	private boolean dirty;
+	// private boolean dirty;
 
 	public SpigotGeyserHUD(Player player) {
 		this.player = player;
@@ -34,6 +35,10 @@ public class SpigotGeyserHUD implements IGeyserHUD {
 
 	@Override
 	public IHUDPart addPart(IHUDPart part) {
+		if (part.getHUDId() != -1) {
+			parts.put(part.getHUDId(), part);
+			return part;
+		}
 		part.setHUDId(getAvailableId());
 		parts.put(part.getHUDId(), part);
 		GeyserHUDSpigot.NETWORK.sendPacket(this.player, new PacketNewPart(part));
@@ -78,22 +83,33 @@ public class SpigotGeyserHUD implements IGeyserHUD {
 		return id;
 	}
 
-	@Override
-	public boolean isDirty() {
-		if (this.dirty)
-			return this.dirty;
-		for (Entry<Integer, IHUDPart> e : parts.entrySet())
-			return e.getValue().isDirty();
-		return false;
-	}
+	// @Override
+	// public boolean isDirty() {
+	// if (this.dirty)
+	// return this.dirty;
+	// for (Entry<Integer, IHUDPart> e : parts.entrySet())
+	// return e.getValue().isDirty();
+	// return false;
+	// }
+
+	// @Override
+	// public void markDirty() {
+	// this.dirty = true;
+	// }
 
 	@Override
-	public void markDirty() {
-		this.dirty = true;
+	public void update() {
+		for (Entry<Integer, IHUDPart> e : parts.entrySet()) {
+			if (e.getValue().isDirty()) {
+				IHUDPart part = e.getValue();
+				part.clean();
+				GeyserHUDSpigot.NETWORK.sendPacket(this.player, new PacketModifyPart(part));
+			}
+		}
 	}
 
-	protected void clean() {
-		this.dirty = false;
-	}
+	// protected void clean() {
+	// this.dirty = false;
+	// }
 
 }

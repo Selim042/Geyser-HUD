@@ -27,6 +27,7 @@ public abstract class AbstractHUDPart implements IHUDPart {
 		this.dirty = true;
 	}
 
+	@Override
 	public void clean() {
 		this.dirty = false;
 	}
