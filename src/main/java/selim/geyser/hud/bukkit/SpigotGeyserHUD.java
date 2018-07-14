@@ -35,7 +35,7 @@ public class SpigotGeyserHUD implements IGeyserHUD {
 	}
 
 	@Override
-	public IHUDPart addPart(IHUDPart part) {
+	public <T extends IHUDPart> T addPart(T part) {
 		if (part.getHUDId() != -1) {
 			parts.put(part.getHUDId(), part);
 			return part;
@@ -54,8 +54,9 @@ public class SpigotGeyserHUD implements IGeyserHUD {
 		return part;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public IHUDPart removePart(IHUDPart part) {
+	public <T extends IHUDPart> T removePart(T part) {
 		if (part == null)
 			return null;
 		int id = -1;
@@ -64,7 +65,7 @@ public class SpigotGeyserHUD implements IGeyserHUD {
 				id = i;
 		if (id == -1)
 			return null;
-		return removePart(id);
+		return (T) removePart(id);
 	}
 
 	@Override

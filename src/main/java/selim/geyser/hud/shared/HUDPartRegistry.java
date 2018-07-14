@@ -10,18 +10,8 @@ public class HUDPartRegistry {
 	private static final Map<Integer, Class<? extends IHUDPart>> PARTS = new HashMap<>();
 
 	public static int registerPart(Class<? extends IHUDPart> partClass) {
-		IHUDPart part;
-		try {
-			part = partClass.newInstance();
-		} catch (InstantiationException | IllegalAccessException e) {
-			e.printStackTrace();
-			return -1;
-		}
-		// if (part.getRegistryId() != -1)
-		// return -1;
 		int id = currentId++;
 		PARTS.put(id, partClass);
-		// part.setRegistryId(id);
 		return id;
 	}
 
