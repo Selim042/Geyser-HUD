@@ -1,23 +1,15 @@
 package selim.geyser.hud.shared;
 
-import java.util.List;
+public interface IGeyserHUD {
 
-public interface IGeyserHUD<S> {
+	public IHUDPart getPart(int id);
 
-	public default void renderText(String text, int x, int y) {
-		renderText(text, x, y, 0xFFFFFF);
-	}
+	public IHUDPart addPart(IHUDPart part);
 
-	public void renderText(String text, int x, int y, int color);
+	public IHUDPart[] getParts();
 
-	public void renderRectangle(int x, int y, int width, int height, int color);
+	public boolean isDirty();
 
-	public void renderItemStack(S stack);
-
-	public List<StringRender> getStringRenders();
-
-	public List<RectangleRender> getRectangleRenders();
-
-	public List<S> getItemStacks();
+	public void markDirty();
 
 }

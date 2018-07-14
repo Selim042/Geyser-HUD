@@ -1,47 +1,67 @@
 package selim.geyser.hud.forge;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
-import net.minecraft.item.ItemStack;
 import selim.geyser.hud.shared.IGeyserHUD;
-import selim.geyser.hud.shared.RectangleRender;
-import selim.geyser.hud.shared.StringRender;
+import selim.geyser.hud.shared.IHUDPart;
 
-public class ForgeGeyserHUD implements IGeyserHUD<ItemStack> {
+public class ForgeGeyserHUD implements IGeyserHUD {
 
-	protected final List<StringRender> stringRenders = new LinkedList<>();
-	protected final List<RectangleRender> rectangleRenders = new LinkedList<>();
-	protected final List<ItemStack> stacks = new LinkedList<>();
+	private int partId = 0;
+	private List<Integer> reusableIds = new ArrayList<>();
+	private Map<Integer, IHUDPart> parts = new HashMap<>();
+	private boolean dirty;
 
 	@Override
-	public void renderText(String text, int x, int y, int color) {
-		stringRenders.add(new StringRender(text, x, y, color));
+	public IHUDPart getPart(int id) {
+		return parts.get(id);
 	}
 
 	@Override
-	public void renderRectangle(int x, int y, int width, int height, int color) {
-		rectangleRenders.add(new RectangleRender(x, y, width, height, color));
+	public IHUDPart addPart(IHUDPart part) {
+		part.setHUDId(getAvailableId());
+		parts.put(part.getHUDId(), part);
+		return part;
 	}
 
 	@Override
-	public void renderItemStack(ItemStack stack) {
-		stacks.add(stack);
+	public IHUDPart[] getParts() {
+		// TODO: optimize
+		List<IHUDPart> parts = new LinkedList<>();
+		for (Entry<Integer, IHUDPart> e : this.parts.entrySet())
+			parts.add(e.getValue());
+		return parts.toArray(new IHUDPart[0]);
+	}
+
+	private int getAvailableId() {
+		if (reusableIds.isEmpty())
+			return partId++;
+		int id = reusableIds.get(0);
+		reusableIds.remove(0);
+		return id;
 	}
 
 	@Override
-	public List<StringRender> getStringRenders() {
-		return stringRenders;
+	public boolean isDirty() {
+		if (this.dirty)
+			return this.dirty;
+		for (Entry<Integer, IHUDPart> e : parts.entrySet())
+			return e.getValue().isDirty();
+		return false;
 	}
 
 	@Override
-	public List<RectangleRender> getRectangleRenders() {
-		return rectangleRenders;
+	public void markDirty() {
+		this.dirty = true;
 	}
 
-	@Override
-	public List<ItemStack> getItemStacks() {
-		return stacks;
+	protected void clean() {
+		this.dirty = false;
 	}
 
 }
