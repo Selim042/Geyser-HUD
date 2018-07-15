@@ -27,6 +27,7 @@ public abstract class AbstractHUDPart implements IHUDPart {
 		buf.writeInt(this.hudId);
 		buf.writeInt(this.x);
 		buf.writeInt(this.y);
+		buf.writeFloat(this.scale);
 	}
 
 	@Override
@@ -34,6 +35,7 @@ public abstract class AbstractHUDPart implements IHUDPart {
 		this.hudId = buf.readInt();
 		this.x = buf.readInt();
 		this.y = buf.readInt();
+		this.scale = buf.readFloat();
 	}
 
 	@Override
