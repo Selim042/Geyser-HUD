@@ -36,8 +36,8 @@ public class PacketScreenSize extends GeyserPacket {
 				int oldHeight = hud.getHeight();
 				gHud.setWidth(packet.width);
 				gHud.setHeight(packet.height);
-				Bukkit.getPluginManager()
-						.callEvent(new HUDResizeEvent(oldWidth, oldHeight, packet.width, packet.height));
+				Bukkit.getPluginManager().callEvent(
+						new HUDResizeEvent(player, oldWidth, oldHeight, packet.width, packet.height));
 			}
 			return null;
 		}
