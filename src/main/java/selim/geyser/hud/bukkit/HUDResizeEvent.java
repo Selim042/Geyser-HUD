@@ -1,9 +1,10 @@
 package selim.geyser.hud.bukkit;
 
-import org.bukkit.event.Event;
+import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
+import org.bukkit.event.player.PlayerEvent;
 
-public class HUDResizeEvent extends Event {
+public class HUDResizeEvent extends PlayerEvent {
 
 	private static final HandlerList handlers = new HandlerList();
 
@@ -12,7 +13,8 @@ public class HUDResizeEvent extends Event {
 	private final int width;
 	private final int height;
 
-	public HUDResizeEvent(int oldWidth, int oldHeight, int width, int height) {
+	public HUDResizeEvent(Player player, int oldWidth, int oldHeight, int width, int height) {
+		super(player);
 		this.oldWidth = oldWidth;
 		this.oldHeight = oldHeight;
 		this.width = width;
