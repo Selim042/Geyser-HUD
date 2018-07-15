@@ -3,8 +3,6 @@ package selim.geyser.hud.shared;
 public abstract class StringHUDPart extends AbstractHUDPart {
 
 	private String text;
-	private int x;
-	private int y;
 	private int color;
 
 	public StringHUDPart() {}
@@ -14,22 +12,17 @@ public abstract class StringHUDPart extends AbstractHUDPart {
 	}
 
 	public StringHUDPart(String text, int x, int y, int color) {
+		this(text, x, y, color, 1.0f);
+	}
+
+	public StringHUDPart(String text, int x, int y, int color, float scale) {
+		super(x, y, scale);
 		this.text = text;
-		this.x = x;
-		this.y = y;
 		this.color = color;
 	}
 
 	public String getText() {
 		return this.text;
-	}
-
-	public int getPositionX() {
-		return this.x;
-	}
-
-	public int getPositionY() {
-		return this.y;
 	}
 
 	public int getColor() {
@@ -38,18 +31,6 @@ public abstract class StringHUDPart extends AbstractHUDPart {
 
 	public StringHUDPart setText(String text) {
 		this.text = text;
-		this.markDirty();
-		return this;
-	}
-
-	public StringHUDPart setPositonX(int x) {
-		this.x = x;
-		this.markDirty();
-		return this;
-	}
-
-	public StringHUDPart setPositonY(int y) {
-		this.y = y;
 		this.markDirty();
 		return this;
 	}

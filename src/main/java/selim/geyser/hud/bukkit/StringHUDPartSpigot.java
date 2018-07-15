@@ -16,12 +16,14 @@ public class StringHUDPartSpigot extends StringHUDPart {
 		super(text, x, y, color);
 	}
 
+	public StringHUDPartSpigot(String text, int x, int y, int color, float scale) {
+		super(text, x, y, color, scale);
+	}
+
 	@Override
 	public void toBytes(ByteBuf buf) {
 		super.toBytes(buf);
 		BukkitByteBufUtils.writeUTF8String(buf, this.getText());
-		buf.writeInt(this.getPositionX());
-		buf.writeInt(this.getPositionY());
 		buf.writeInt(this.getColor());
 	}
 
@@ -29,8 +31,6 @@ public class StringHUDPartSpigot extends StringHUDPart {
 	public void fromBytes(ByteBuf buf) {
 		super.fromBytes(buf);
 		this.setText(BukkitByteBufUtils.readUTF8String(buf));
-		this.setPositonX(buf.readInt());
-		this.setPositonY(buf.readInt());
 		this.setColor(buf.readInt());
 	}
 

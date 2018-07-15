@@ -20,4 +20,16 @@ public interface IHUDPart {
 
 	public void setHUDId(int id);
 
+	public int getPositionX();
+
+	public int getPositionY();
+
+	public IHUDPart setPositionX(int x);
+
+	public IHUDPart setPositionY(int y);
+
+	public float getScale();
+
+	public IHUDPart setScale(float scale);
+
 }

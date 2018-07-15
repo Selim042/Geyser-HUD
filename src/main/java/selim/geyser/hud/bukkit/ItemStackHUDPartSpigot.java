@@ -9,31 +9,28 @@ import selim.geyser.hud.shared.AbstractHUDPart;
 public class ItemStackHUDPartSpigot extends AbstractHUDPart {
 
 	private ItemStack stack;
-	private int x;
-	private int y;
 
 	public ItemStackHUDPartSpigot() {}
 
 	public ItemStackHUDPartSpigot(ItemStack stack, int x, int y) {
+		this(stack, x, y, 1.0f);
+	}
+
+	public ItemStackHUDPartSpigot(ItemStack stack, int x, int y, float scale) {
+		super(x, y, scale);
 		this.stack = stack;
-		this.x = x;
-		this.y = y;
 	}
 
 	@Override
 	public void toBytes(ByteBuf buf) {
 		super.toBytes(buf);
 		BukkitByteBufUtils.writeItemStack(buf, this.stack);
-		buf.writeInt(this.x);
-		buf.writeInt(this.y);
 	}
 
 	@Override
 	public void fromBytes(ByteBuf buf) {
 		super.fromBytes(buf);
 		this.stack = BukkitByteBufUtils.readItemStack(buf);
-		this.x = buf.readInt();
-		this.y = buf.readInt();
 	}
 
 }
