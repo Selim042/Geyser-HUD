@@ -106,14 +106,4 @@ public class GeyserHUDSpigot extends JavaPlugin implements Listener, IGeyserCore
 		HUDS.remove(event.getPlayer());
 	}
 
-	public static void main(String[] args) {
-		RectangleHUDPart comp = new RectangleHUDPart(1, 2, 3, 4, 5);
-		ByteBuf buf = Unpooled.buffer();
-		comp.toBytes(buf);
-		RectangleHUDPart comp2 = new RectangleHUDPart();
-		comp2.fromBytes(buf);
-		System.out.println("x: " + comp2.getPositionX() + ", y: " + comp2.getPositionY() + ", width: "
-				+ comp2.getWidth() + ", height: " + comp2.getHeight());
-	}
-
 }
