@@ -1,7 +1,7 @@
 package selim.geyser.hud.bukkit;
 
 import io.netty.buffer.ByteBuf;
-import selim.geyser.core.bukkit.BukkitByteBufUtils;
+import selim.geyser.core.shared.SharedByteBufUtils;
 import selim.geyser.hud.shared.StringHUDPart;
 
 public class StringHUDPartSpigot extends StringHUDPart {
@@ -23,14 +23,14 @@ public class StringHUDPartSpigot extends StringHUDPart {
 	@Override
 	public void toBytes(ByteBuf buf) {
 		super.toBytes(buf);
-		BukkitByteBufUtils.writeUTF8String(buf, this.getText());
+		SharedByteBufUtils.writeUTF8String(buf, this.getText());
 		buf.writeInt(this.getColor());
 	}
 
 	@Override
 	public void fromBytes(ByteBuf buf) {
 		super.fromBytes(buf);
-		this.setText(BukkitByteBufUtils.readUTF8String(buf));
+		this.setText(SharedByteBufUtils.readUTF8String(buf));
 		this.setColor(buf.readInt());
 	}
 
