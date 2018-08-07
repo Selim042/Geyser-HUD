@@ -81,7 +81,8 @@ public class GeyserHUDForge {
 		}
 		GlStateManager.pushMatrix();
 		for (IHUDPart part : HUD.getParts())
-			part.render();
+			if (!part.isHidden())
+				part.render();
 		GlStateManager.popMatrix();
 	}
 

@@ -51,6 +51,10 @@ public class SpigotGeyserHUD implements IGeyserHUD {
 	@Override
 	public <T extends IHUDPart> T addPart(RegistryKey key, T part) {
 		addPart(part);
+		if (keys.containsKey(key)) {
+			int id = keys.get(key);
+			removePart(id);
+		}
 		keys.put(key, part.getHUDId());
 		return part;
 	}

@@ -32,4 +32,8 @@ public interface IHUDPart {
 
 	public IHUDPart setScale(float scale);
 
+	public boolean isHidden();
+
+	public void setHidden(boolean hidden);
+
 }

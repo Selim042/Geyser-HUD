@@ -9,6 +9,7 @@ public abstract class AbstractHUDPart implements IHUDPart {
 	private int x;
 	private int y;
 	private float scale;
+	private boolean hidden;
 
 	public AbstractHUDPart() {}
 
@@ -28,6 +29,7 @@ public abstract class AbstractHUDPart implements IHUDPart {
 		buf.writeInt(this.x);
 		buf.writeInt(this.y);
 		buf.writeFloat(this.scale);
+		buf.writeBoolean(this.hidden);
 	}
 
 	@Override
@@ -36,6 +38,7 @@ public abstract class AbstractHUDPart implements IHUDPart {
 		this.x = buf.readInt();
 		this.y = buf.readInt();
 		this.scale = buf.readFloat();
+		this.hidden = buf.readBoolean();
 	}
 
 	@Override
@@ -98,6 +101,16 @@ public abstract class AbstractHUDPart implements IHUDPart {
 		this.scale = scale;
 		this.markDirty();
 		return this;
+	}
+
+	@Override
+	public boolean isHidden() {
+		return this.hidden;
+	}
+
+	@Override
+	public void setHidden(boolean hidden) {
+		this.hidden = hidden;
 	}
 
 }
