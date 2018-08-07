@@ -1,6 +1,6 @@
 package selim.geyser.hud.shared;
 
-public abstract class LocalizedStringHUDPart extends AbstractHUDPart {
+public class LocalizedStringHUDPart extends AbstractHUDPart {
 
 	private String text;
 	private int color;

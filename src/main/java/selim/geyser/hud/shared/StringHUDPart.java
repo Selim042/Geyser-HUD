@@ -3,7 +3,7 @@ package selim.geyser.hud.shared;
 import io.netty.buffer.ByteBuf;
 import selim.geyser.core.shared.SharedByteBufUtils;
 
-public abstract class StringHUDPart extends AbstractHUDPart {
+public class StringHUDPart extends AbstractHUDPart {
 
 	private String text;
 	private int color;
