@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 
 import org.bukkit.entity.Player;
 
+import selim.geyser.core.shared.RegistryKey;
 import selim.geyser.hud.bukkit.packets.PacketModifyPart;
 import selim.geyser.hud.bukkit.packets.PacketNewPart;
 import selim.geyser.hud.bukkit.packets.PacketRemovePart;
@@ -22,6 +23,7 @@ public class SpigotGeyserHUD implements IGeyserHUD {
 	private int partId = 0;
 	private List<Integer> reusableIds = new ArrayList<>();
 	private Map<Integer, IHUDPart> parts = new HashMap<>();
+	private Map<RegistryKey, Integer> keys = new HashMap<>();
 	private int width;
 	private int height;
 
@@ -44,6 +46,20 @@ public class SpigotGeyserHUD implements IGeyserHUD {
 		parts.put(part.getHUDId(), part);
 		GeyserHUDSpigot.NETWORK.sendPacket(this.player, new PacketNewPart(part));
 		return part;
+	}
+
+	@Override
+	public <T extends IHUDPart> T addPart(RegistryKey key, T part) {
+		addPart(part);
+		keys.put(key, part.getHUDId());
+		return part;
+	}
+
+	@Override
+	public IHUDPart getPart(RegistryKey key) {
+		if (keys.containsKey(key))
+			return parts.get(keys.get(key));
+		return null;
 	}
 
 	@Override

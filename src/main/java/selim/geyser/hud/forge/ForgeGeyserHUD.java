@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import net.minecraft.client.Minecraft;
+import selim.geyser.core.shared.RegistryKey;
 import selim.geyser.hud.shared.IGeyserHUD;
 import selim.geyser.hud.shared.IHUDPart;
 
@@ -16,6 +17,7 @@ public class ForgeGeyserHUD implements IGeyserHUD {
 	private int partId = 0;
 	private List<Integer> reusableIds = new ArrayList<>();
 	private Map<Integer, IHUDPart> parts = new HashMap<>();
+	private Map<RegistryKey, Integer> keys = new HashMap<>();
 
 	@Override
 	public IHUDPart getPart(int id) {
@@ -31,6 +33,20 @@ public class ForgeGeyserHUD implements IGeyserHUD {
 		part.setHUDId(getAvailableId());
 		parts.put(part.getHUDId(), part);
 		return part;
+	}
+
+	@Override
+	public <T extends IHUDPart> T addPart(RegistryKey key, T part) {
+		addPart(part);
+		keys.put(key, part.getHUDId());
+		return part;
+	}
+
+	@Override
+	public IHUDPart getPart(RegistryKey key) {
+		if (keys.containsKey(key))
+			return parts.get(keys.get(key));
+		return null;
 	}
 
 	@Override
