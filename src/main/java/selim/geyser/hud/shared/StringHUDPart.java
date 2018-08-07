@@ -1,5 +1,8 @@
 package selim.geyser.hud.shared;
 
+import io.netty.buffer.ByteBuf;
+import selim.geyser.core.shared.SharedByteBufUtils;
+
 public abstract class StringHUDPart extends AbstractHUDPart {
 
 	private String text;
@@ -39,6 +42,20 @@ public abstract class StringHUDPart extends AbstractHUDPart {
 		this.color = color;
 		this.markDirty();
 		return this;
+	}
+
+	@Override
+	public void toBytes(ByteBuf buf) {
+		super.toBytes(buf);
+		SharedByteBufUtils.writeUTF8String(buf, this.getText());
+		buf.writeInt(this.getColor());
+	}
+
+	@Override
+	public void fromBytes(ByteBuf buf) {
+		super.fromBytes(buf);
+		this.setText(SharedByteBufUtils.readUTF8String(buf));
+		this.setColor(buf.readInt());
 	}
 
 }
