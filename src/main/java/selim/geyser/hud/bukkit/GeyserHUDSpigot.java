@@ -14,8 +14,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import selim.geyser.core.bukkit.network.NetworkHandler;
 import selim.geyser.core.shared.EnumComponent;
 import selim.geyser.core.shared.IGeyserCorePlugin;
@@ -27,7 +25,9 @@ import selim.geyser.hud.bukkit.packets.PacketScreenSize;
 import selim.geyser.hud.shared.GeyserHUDInfo;
 import selim.geyser.hud.shared.HUDPartRegistry;
 import selim.geyser.hud.shared.IGeyserHUD;
+import selim.geyser.hud.shared.LocalizedStringHUDPart;
 import selim.geyser.hud.shared.RectangleHUDPart;
+import selim.geyser.hud.shared.StringHUDPart;
 
 public class GeyserHUDSpigot extends JavaPlugin implements Listener, IGeyserCorePlugin {
 
@@ -58,9 +58,10 @@ public class GeyserHUDSpigot extends JavaPlugin implements Listener, IGeyserCore
 		PluginManager manager = this.getServer().getPluginManager();
 		manager.registerEvents(this, this);
 
-		HUDPartRegistry.registerPart(StringHUDPartSpigot.class);
+		HUDPartRegistry.registerPart(StringHUDPart.class);
 		HUDPartRegistry.registerPart(RectangleHUDPart.class);
 		HUDPartRegistry.registerPart(ItemStackHUDPartSpigot.class);
+		HUDPartRegistry.registerPart(LocalizedStringHUDPart.class);
 	}
 
 	@Override

@@ -26,6 +26,7 @@ import selim.geyser.hud.shared.GeyserHUDInfo;
 import selim.geyser.hud.shared.HUDPartRegistry;
 import selim.geyser.hud.shared.IGeyserHUD;
 import selim.geyser.hud.shared.IHUDPart;
+import selim.geyser.hud.shared.LocalizedStringHUDPart;
 
 @Mod.EventBusSubscriber
 @Mod(modid = GeyserHUDInfo.ID, name = GeyserHUDInfo.NAME, version = GeyserHUDInfo.VERSION,
@@ -56,6 +57,7 @@ public class GeyserHUDForge {
 		HUDPartRegistry.registerPart(StringHUDPartForge.class);
 		HUDPartRegistry.registerPart(RectangleHUDPartForge.class);
 		HUDPartRegistry.registerPart(ItemStackHUDPartForge.class);
+		HUDPartRegistry.registerPart(LocalizedStringHUDPartForge.class);
 
 		// LOGGER.info("sending");
 		FMLInterModComms.sendMessage(GeyserCoreInfo.ID, GeyserCoreInfo.IMC_SEND_KEY,
