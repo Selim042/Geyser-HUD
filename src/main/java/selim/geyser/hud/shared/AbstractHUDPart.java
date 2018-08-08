@@ -79,15 +79,19 @@ public abstract class AbstractHUDPart implements IHUDPart {
 
 	@Override
 	public IHUDPart setPositionX(int x) {
+		int prevX = this.x;
 		this.x = x;
-		this.markDirty();
+		if (prevX != x)
+			this.markDirty();
 		return this;
 	}
 
 	@Override
 	public IHUDPart setPositionY(int y) {
+		int prevY = this.y;
 		this.y = y;
-		this.markDirty();
+		if (prevY != y)
+			this.markDirty();
 		return this;
 	}
 
@@ -98,8 +102,10 @@ public abstract class AbstractHUDPart implements IHUDPart {
 
 	@Override
 	public IHUDPart setScale(float scale) {
+		float prevScale = this.scale;
 		this.scale = scale;
-		this.markDirty();
+		if (prevScale != scale)
+			this.markDirty();
 		return this;
 	}
 
@@ -110,7 +116,10 @@ public abstract class AbstractHUDPart implements IHUDPart {
 
 	@Override
 	public void setHidden(boolean hidden) {
+		boolean prevHidden = this.hidden;
 		this.hidden = hidden;
+		if (prevHidden != hidden)
+			this.markDirty();
 	}
 
 }
