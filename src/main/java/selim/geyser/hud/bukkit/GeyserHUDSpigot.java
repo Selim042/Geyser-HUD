@@ -22,6 +22,7 @@ import selim.geyser.hud.bukkit.packets.PacketModifyPart;
 import selim.geyser.hud.bukkit.packets.PacketNewPart;
 import selim.geyser.hud.bukkit.packets.PacketRemovePart;
 import selim.geyser.hud.bukkit.packets.PacketScreenSize;
+import selim.geyser.hud.shared.CollectionHUDPart;
 import selim.geyser.hud.shared.GeyserHUDInfo;
 import selim.geyser.hud.shared.HUDPartRegistry;
 import selim.geyser.hud.shared.IGeyserHUD;
@@ -62,6 +63,7 @@ public class GeyserHUDSpigot extends JavaPlugin implements Listener, IGeyserCore
 		HUDPartRegistry.registerPart(RectangleHUDPart.class);
 		HUDPartRegistry.registerPart(ItemStackHUDPartSpigot.class);
 		HUDPartRegistry.registerPart(LocalizedStringHUDPart.class);
+		HUDPartRegistry.registerPart(CollectionHUDPart.class);
 	}
 
 	@Override

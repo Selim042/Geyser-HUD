@@ -22,6 +22,7 @@ import selim.geyser.hud.forge.packets.PacketModifyPart;
 import selim.geyser.hud.forge.packets.PacketNewPart;
 import selim.geyser.hud.forge.packets.PacketRemovePart;
 import selim.geyser.hud.forge.packets.PacketScreenSize;
+import selim.geyser.hud.shared.CollectionHUDPart;
 import selim.geyser.hud.shared.GeyserHUDInfo;
 import selim.geyser.hud.shared.HUDPartRegistry;
 import selim.geyser.hud.shared.IGeyserHUD;
@@ -58,6 +59,7 @@ public class GeyserHUDForge {
 		HUDPartRegistry.registerPart(RectangleHUDPartForge.class);
 		HUDPartRegistry.registerPart(ItemStackHUDPartForge.class);
 		HUDPartRegistry.registerPart(LocalizedStringHUDPartForge.class);
+		HUDPartRegistry.registerPart(CollectionHUDPart.class);
 
 		// LOGGER.info("sending");
 		FMLInterModComms.sendMessage(GeyserCoreInfo.ID, GeyserCoreInfo.IMC_SEND_KEY,
