@@ -53,6 +53,7 @@ public class SpigotGeyserHUD implements IGeyserHUD {
 		addPart(part);
 		if (keys.containsKey(key)) {
 			int id = keys.get(key);
+			keys.remove(key);
 			removePart(id);
 		}
 		keys.put(key, part.getHUDId());
