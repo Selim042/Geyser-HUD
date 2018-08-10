@@ -27,7 +27,6 @@ import selim.geyser.hud.shared.GeyserHUDInfo;
 import selim.geyser.hud.shared.HUDPartRegistry;
 import selim.geyser.hud.shared.IGeyserHUD;
 import selim.geyser.hud.shared.IHUDPart;
-import selim.geyser.hud.shared.LocalizedStringHUDPart;
 
 @Mod.EventBusSubscriber
 @Mod(modid = GeyserHUDInfo.ID, name = GeyserHUDInfo.NAME, version = GeyserHUDInfo.VERSION,
