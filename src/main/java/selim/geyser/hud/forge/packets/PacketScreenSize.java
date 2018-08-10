@@ -10,8 +10,8 @@ public class PacketScreenSize implements IMessage {
 
 	@Override
 	public void toBytes(ByteBuf buf) {
-		buf.writeInt(Minecraft.getMinecraft().displayWidth);
-		buf.writeInt(Minecraft.getMinecraft().displayHeight);
+		buf.writeInt(Minecraft.getMinecraft().displayWidth / 2);
+		buf.writeInt(Minecraft.getMinecraft().displayHeight / 2);
 	}
 
 	@Override
