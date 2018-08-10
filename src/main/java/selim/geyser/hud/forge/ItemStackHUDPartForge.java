@@ -43,4 +43,14 @@ public class ItemStackHUDPartForge extends AbstractHUDPart {
 		GlStateManager.popMatrix();
 	}
 
+	public ItemStack getStack() {
+		return this.stack;
+	}
+
+	public ItemStackHUDPartForge setStack(ItemStack stack) {
+		this.stack = stack;
+		this.markDirty();
+		return this;
+	}
+
 }

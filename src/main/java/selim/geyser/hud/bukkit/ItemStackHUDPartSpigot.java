@@ -33,4 +33,14 @@ public class ItemStackHUDPartSpigot extends AbstractHUDPart {
 		this.stack = BukkitByteBufUtils.readItemStack(buf);
 	}
 
+	public ItemStack getStack() {
+		return this.stack;
+	}
+
+	public ItemStackHUDPartSpigot setStack(ItemStack stack) {
+		this.stack = stack;
+		this.markDirty();
+		return this;
+	}
+
 }
