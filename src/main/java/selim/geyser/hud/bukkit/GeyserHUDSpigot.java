@@ -54,7 +54,8 @@ public class GeyserHUDSpigot extends JavaPlugin implements Listener, IGeyserCore
 		NETWORK.registerPacket(GeyserHUDInfo.PacketDiscrimators.CLEAR_HUD, PacketClearHUD.class);
 		NETWORK.registerPacket(GeyserHUDInfo.PacketDiscrimators.REMOVE_PART, PacketRemovePart.class);
 		NETWORK.registerPacket(GeyserHUDInfo.PacketDiscrimators.MODIFY_PART, PacketModifyPart.class);
-		NETWORK.registerPacket(GeyserHUDInfo.PacketDiscrimators.SCREEN_SIZE, PacketScreenSize.class);
+		NETWORK.registerPacket(GeyserHUDInfo.PacketDiscrimators.SCREEN_SIZE, PacketScreenSize.class,
+				PacketScreenSize.Handler.class);
 
 		PluginManager manager = this.getServer().getPluginManager();
 		manager.registerEvents(this, this);
