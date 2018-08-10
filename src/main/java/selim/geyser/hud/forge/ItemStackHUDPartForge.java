@@ -3,6 +3,7 @@ package selim.geyser.hud.forge;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import selim.geyser.hud.shared.AbstractHUDPart;
@@ -37,6 +38,9 @@ public class ItemStackHUDPartForge extends AbstractHUDPart {
 	@Override
 	public void render() {
 		GlStateManager.pushMatrix();
+		GlStateManager.enableLighting();
+		RenderHelper.disableStandardItemLighting();
+		RenderHelper.enableGUIStandardItemLighting();
 		GlStateManager.scale(this.getScale(), this.getScale(), this.getScale());
 		Minecraft.getMinecraft().getRenderItem().renderItemAndEffectIntoGUI(this.stack,
 				this.getPositionX(), this.getPositionY());
