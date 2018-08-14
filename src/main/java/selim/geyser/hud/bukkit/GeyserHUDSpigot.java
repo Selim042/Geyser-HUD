@@ -29,6 +29,7 @@ import selim.geyser.hud.shared.IGeyserHUD;
 import selim.geyser.hud.shared.LocalizedStringHUDPart;
 import selim.geyser.hud.shared.RectangleHUDPart;
 import selim.geyser.hud.shared.StringHUDPart;
+import selim.geyser.hud.shared.TooltipWindowHUDPart;
 
 public class GeyserHUDSpigot extends JavaPlugin implements Listener, IGeyserCorePlugin {
 
@@ -65,6 +66,7 @@ public class GeyserHUDSpigot extends JavaPlugin implements Listener, IGeyserCore
 		HUDPartRegistry.registerPart(ItemStackHUDPartSpigot.class);
 		HUDPartRegistry.registerPart(LocalizedStringHUDPart.class);
 		HUDPartRegistry.registerPart(CollectionHUDPart.class);
+		HUDPartRegistry.registerPart(TooltipWindowHUDPart.class);
 	}
 
 	@Override
