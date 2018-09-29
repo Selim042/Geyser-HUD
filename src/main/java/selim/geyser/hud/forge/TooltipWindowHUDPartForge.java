@@ -11,6 +11,7 @@ public class TooltipWindowHUDPartForge extends TooltipWindowHUDPart {
 
 	@Override
 	public void render() {
+		GlStateManager.pushMatrix();
 		GlStateManager.disableRescaleNormal();
 		RenderHelper.disableStandardItemLighting();
 		GlStateManager.disableLighting();
@@ -57,6 +58,7 @@ public class TooltipWindowHUDPartForge extends TooltipWindowHUDPart {
 		GlStateManager.enableDepth();
 		RenderHelper.enableStandardItemLighting();
 		GlStateManager.enableRescaleNormal();
+		GlStateManager.popMatrix();
 	}
 
 	private static void drawGradientRect(int zLevel, int left, int top, int right, int bottom,

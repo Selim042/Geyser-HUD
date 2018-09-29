@@ -60,6 +60,7 @@ public class GeyserHUDForge {
 		HUDPartRegistry.registerPart(LocalizedStringHUDPartForge.class);
 		HUDPartRegistry.registerPart(CollectionHUDPart.class);
 		HUDPartRegistry.registerPart(TooltipWindowHUDPartForge.class);
+		HUDPartRegistry.registerPart(TexturedHUDPartForge.class);
 
 		// LOGGER.info("sending");
 		FMLInterModComms.sendMessage(GeyserCoreInfo.ID, GeyserCoreInfo.IMC_SEND_KEY,
