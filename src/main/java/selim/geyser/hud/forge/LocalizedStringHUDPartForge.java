@@ -3,9 +3,9 @@ package selim.geyser.hud.forge;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
-import selim.geyser.hud.shared.StringHUDPart;
+import selim.geyser.hud.shared.LocalizedStringHUDPart;
 
-public class LocalizedStringHUDPartForge extends StringHUDPart {
+public class LocalizedStringHUDPartForge extends LocalizedStringHUDPart {
 
 	@Override
 	public void render() {
