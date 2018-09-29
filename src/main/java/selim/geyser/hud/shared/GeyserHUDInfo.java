@@ -4,7 +4,7 @@ public class GeyserHUDInfo {
 
 	public static final String ID = "geyserhud";
 	public static final String NAME = "Geyser HUD";
-	public static final String VERSION = "1.0.0";
+	public static final String VERSION = "1.1.0";
 	public static final String CHANNEL = "geyser_hud";
 
 	public static class PacketDiscrimators {
