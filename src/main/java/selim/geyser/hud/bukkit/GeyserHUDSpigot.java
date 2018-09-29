@@ -1,9 +1,7 @@
 package selim.geyser.hud.bukkit;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bukkit.entity.Player;
@@ -14,6 +12,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import selim.geyser.core.bukkit.GeyserCoreSpigot;
 import selim.geyser.core.bukkit.network.NetworkHandler;
 import selim.geyser.core.shared.EnumComponent;
 import selim.geyser.core.shared.IGeyserCorePlugin;
@@ -29,6 +28,7 @@ import selim.geyser.hud.shared.IGeyserHUD;
 import selim.geyser.hud.shared.LocalizedStringHUDPart;
 import selim.geyser.hud.shared.RectangleHUDPart;
 import selim.geyser.hud.shared.StringHUDPart;
+import selim.geyser.hud.shared.TexturedHUDPart;
 import selim.geyser.hud.shared.TooltipWindowHUDPart;
 
 public class GeyserHUDSpigot extends JavaPlugin implements Listener, IGeyserCorePlugin {
@@ -67,6 +67,7 @@ public class GeyserHUDSpigot extends JavaPlugin implements Listener, IGeyserCore
 		HUDPartRegistry.registerPart(LocalizedStringHUDPart.class);
 		HUDPartRegistry.registerPart(CollectionHUDPart.class);
 		HUDPartRegistry.registerPart(TooltipWindowHUDPart.class);
+		HUDPartRegistry.registerPart(TexturedHUDPart.class);
 	}
 
 	@Override
@@ -75,16 +76,7 @@ public class GeyserHUDSpigot extends JavaPlugin implements Listener, IGeyserCore
 	}
 
 	private int getPing(Player player) {
-		try {
-			Object entityPlayer = player.getClass().getMethod("getHandle").invoke(player);
-			return (int) entityPlayer.getClass().getField("ping").get(entityPlayer);
-		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException
-				| NoSuchMethodException | SecurityException | NoSuchFieldException e) {
-			this.getLogger().log(Level.INFO, "Unable to get ping for " + player.getDisplayName()
-					+ ", encountered a " + e.getClass().getName());
-			e.printStackTrace();
-			return -1;
-		}
+		return GeyserCoreSpigot.getPing(player);
 	}
 
 	@EventHandler
