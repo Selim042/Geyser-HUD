@@ -32,8 +32,9 @@ public class RectangleHUDPart extends AbstractHUDPart {
 	@Override
 	public void fromBytes(ByteBuf buf) {
 		super.fromBytes(buf);
-		width = buf.readInt();
-		height = buf.readInt();
+		this.width = buf.readInt();
+		this.height = buf.readInt();
+		this.color = buf.readInt();
 	}
 
 	public int getWidth() {
