@@ -8,10 +8,15 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import net.minecraft.client.Minecraft;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.network.FMLNetworkEvent.ClientDisconnectionFromServerEvent;
 import selim.geyser.core.shared.RegistryKey;
+import selim.geyser.hud.shared.GeyserHUDInfo;
 import selim.geyser.hud.shared.IGeyserHUD;
 import selim.geyser.hud.shared.IHUDPart;
 
+@Mod.EventBusSubscriber(modid = GeyserHUDInfo.ID)
 public class ForgeGeyserHUD implements IGeyserHUD {
 
 	private int partId = 0;
@@ -97,6 +102,11 @@ public class ForgeGeyserHUD implements IGeyserHUD {
 	@Override
 	public int getHeight() {
 		return Minecraft.getMinecraft().displayHeight;
+	}
+
+	@SubscribeEvent
+	public static void onDisconnect(ClientDisconnectionFromServerEvent event) {
+		GeyserHUDForge.HUD = new ForgeGeyserHUD();
 	}
 
 }
